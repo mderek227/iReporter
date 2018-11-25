@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<title>iReporter-  Red Flag</title>
+</head>
+
+<body>
+<div class="title"><h1>iReporter</h1></div>
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="redFlag.html">Red Flag</a>
+  <a href="intervention.html">Intervention</a>
+  <a href="index.html">Log Out</a>
+</div>
+<div class="title2">
+  <h2>Manage Red Flags</h2>
+</div>
+<div class="container">
+      <div class="tab1" width= 35%>
+    Latitude:<input type="text" name="latitude" id="lat">
+    Longitude:<input type="text" name="longitude" id="long">
+    Description:<input type="text" name="description" id="desc">
+    Status:<input type="text" name="status" id="status">
+    
+    <div class="insert">
+    <button onclick="addHtmlTableRow();">Add</button>
+    <button onclick="editHtmlTbleSelectedRow();">Edit</button>
+    <button onclick="removeSelectedRow()">Remove</button>
+  </div>
+  </div>
+
+<div class="tab2" >
+      <table id="table">
+        <tr>
+          <th> Latitude</th>
+          <th> Longitude</th>
+          <th> Description</th>
+          <th> Status</th>
+    
+        </tr>
+        <tr>
+          <td>32.002343</td>
+          <td>0.373838</td>
+          <td>Bribery at the ministry of finance in Kampala</td>
+          <td>Resolved</td>
+    
+        </tr>
+        <tr>
+          <td>10.939309</td>
+          <td>5.8933939</td>
+          <td>Misuse of public funds at Namboole stadium</td>
+          <td>Rejected</td>
+    
+        </tr>
+        <tr>
+          <td>7.8399393</td>
+          <td>20.0044984</td>
+          <td>Bribery of traffic officer on Jinja-Kampala highway</td>
+          <td>Resolved</td>
+    
+        </tr>
+      </table>
+      
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    var rIndex,
+      table = document.getElementById('table');
+
+    // check the empty input
+    function checkEmptyInput()
+    {
+      var isEmpty = false,
+      lat = document.getElementById('lat').value,
+        long = document.getElementById('long').value,
+        desc = document.getElementById('desc').value,
+        status = document.getElementById('status').value;
+
+        if(lat === ""){
+          alert("Latitude cannot be Empty");
+          isEmpty = true;
+        }
+
+        
+        else if(long === ""){
+          alert("Longitude cannot be Empty");
+          isEmpty = true;
+        }
+        
+        else if(desc === ""){
+          alert("Description cannot be Empty");
+          isEmpty = true;
+        }
+        else if(status === ""){
+          alert("Status cannot be Empty");
+          isEmpty = true;
+        }
+
+        return isEmpty;
+        
+    }
+
+
+    
+    function addHtmlTableRow()
+    {
+      if(!checkEmptyInput()){
+
+      var newRow = table.insertRow(table.length),
+        cell1 = newRow.insertCell(0),
+        cell2 = newRow.insertCell(1),
+        cell3 = newRow.insertCell(2),
+        cell4 = newRow.insertCell(3),
+
+        lat = document.getElementById('lat').value,
+        long = document.getElementById('long').value,
+        desc = document.getElementById('desc').value,
+        status = document.getElementById('status').value;
+
+    cell1.innerHTML = lat;
+    cell2.innerHTML = long;
+    cell3.innerHTML = desc;
+    cell4.innerHTML = status;
+
+    selectedRowToInput();
+    }
+
+    }
+
+
+    function selectedRowToInput()
+    {
+      
+      for(var i=1; i<table.rows.length;i++)
+      {
+        table.rows[i].onclick = function()
+        {
+          
+          rIndex = this.rowIndex;
+          document.getElementById('lat').value = this.cells[0].innerHTML;
+          document.getElementById('long').value = this.cells[1].innerHTML;
+          document.getElementById('desc').value = this.cells[2].innerHTML;
+          document.getElementById('status').value = this.cells[3].innerHTML;
+          
+        };
+      }
+    }
+    selectedRowToInput();
+
+    function editHtmlTbleSelectedRow()
+    {
+      var lat = document.getElementById('lat').value,
+      long = document.getElementById('long').value,
+      desc = document.getElementById('desc').value,
+      status = document.getElementById('status').value;
+
+      if(!checkEmptyInput()){
+      table.rows[rIndex].cells[0].innerHTML = lat;
+      table.rows[rIndex].cells[1].innerHTML = long;
+      table.rows[rIndex].cells[2].innerHTML = desc;
+      table.rows[rIndex].cells[3].innerHTML = status;
+
+      }
+    }
+
+
+    function removeSelectedRow()
+    {
+      table.deleteRow(rIndex);
+      //clear input text
+      var lat = document.getElementById('lat').value = "",
+      long = document.getElementById('long').value = "",
+      desc = document.getElementById('desc').value = "",
+      status = document.getElementById('status').value = "";
+    }
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+</html>
